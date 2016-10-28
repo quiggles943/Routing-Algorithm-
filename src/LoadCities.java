@@ -6,8 +6,8 @@ import java.util.*;
 import java.awt.geom.Point2D;
 public class LoadCities {
 
-	public LoadCities(String fileName) {
-		loadTSPLib(fileName);
+	public LoadCities() {
+		//loadTSPLib(fileName);
 	}
 	
 	public static ArrayList<Point2D> loadTSPLib(String fName){
