@@ -3,9 +3,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Map;
-
 import javax.imageio.ImageIO;
 
 
@@ -35,11 +33,15 @@ public class TSPIllustration {
 			}
 			image = new BufferedImage(((width+20)*scale),((height+20)*scale),BufferedImage.TYPE_INT_ARGB);
 			Graphics2D g = image.createGraphics();
+			g.setColor(Color.white);
+			g.fillRect(0,0,(width+20)*scale,(height+20)*scale);
 
 			g.setColor(Color.blue);
 			for (int i=0; i< cities.size(); i++)
 			{
-				g.drawOval((int)((cities.get(i).getX())*scale),(int)((cities.get(i).getY())*scale),6,6);
+				int x = (int)(cities.get(i).getX())*scale;
+				int y =(int)(cities.get(i).getY())*scale;
+				g.fillOval((x-4),(y-4),8,8);
 			}
 			
 			

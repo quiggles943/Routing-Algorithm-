@@ -3,10 +3,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import java.awt.*;
-import java.io.File;
-import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
 
 
 public class NearestNeighbour {
