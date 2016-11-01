@@ -13,6 +13,7 @@ public class Main {
 	static ArrayList<Point2D> cities = new ArrayList<Point2D>();
 	static Map<Integer,Point2D> result = new HashMap<Integer,Point2D>();
 	static Map<Integer,Point2D> result2 = new HashMap<Integer,Point2D>();
+	static Map<Integer,Point2D> result3 = new HashMap<Integer,Point2D>();
 	
 	public static void main(String[] args) {
 		
@@ -23,19 +24,24 @@ public class Main {
 		
 		cities = LoadCities.loadTSPLib(fileLocation);
 		
-		result = NearestNeighbour.nearestNeighbour(cities);
-		cities = LoadCities.loadTSPLib(fileLocation);
-		result2 = NearestNeighbour2.calculate(cities, 270);
+		//result = NearestNeighbour.nearestNeighbour(cities);
+		//cities = LoadCities.loadTSPLib(fileLocation);
+		//result2 = NearestNeighbour2.calculate(cities, 270);
+		//cities = LoadCities.loadTSPLib(fileLocation);
+		result3 = RandomNearestNeighbour.randomNearestNeighbour(cities, 1);
 		
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		System.out.println("Calculations complete");
-		//TSPIllustration.Illustrate(result2, 2);
-		double routeLength = NearestNeighbour.routeLength(result);
-		double routeLength2 = NearestNeighbour.routeLength(result2);
-		System.out.println("The length of the nearest neighbour algorithm route is "+routeLength+"\n");
-		System.out.println("The length of the improved nearest neighbour algorithm route is "+routeLength2);
+		//TSPIllustration.IllustrateAll(result3, 2);
+		//double routeLength = NearestNeighbour.routeLength(result);
+		//double routeLength2 = NearestNeighbour.routeLength(result2);
+		double routeLength3 = NearestNeighbour.routeLength(result3);
+		//System.out.println("The length of the nearest neighbour algorithm route is "+routeLength+"\n");
+		//System.out.println("The length of the improved nearest neighbour algorithm route is "+routeLength2);
+		System.out.println("The length of the  nearest neighbour algorithm route with random starting points is "+routeLength3);
+		//TSPIllustration.IllustrateRoute(result3, (float) 2, fileLocation+" Route");
 
 	}
 
