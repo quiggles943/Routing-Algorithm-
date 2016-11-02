@@ -17,43 +17,54 @@ public class TSPIllustration {
 		
 	}
 	
-	public static void IllustrateAll(Map<Integer, Point2D> points, int scalingFactor){
-			scale = scalingFactor;
-			cities = points;
-			int height = 0;
-			int width = 0;
-			for (int i=0; i< cities.size(); i++)
+	public static void IllustrateAll(Map<Integer, Point2D> points, float scalingFactor, String fileName){
+		scale = scalingFactor;
+		cities = points;
+		int height = 0;
+		int width = 0;
+		for (int i=0; i< cities.size(); i++)
+		{
+			if(cities.get(i).getX()> width)
 			{
-				if(cities.get(i).getX()> width)
-				{
-					width = (int)cities.get(i).getX();
-				}
-				if(cities.get(i).getY()> height)
-				{
-					height = (int)cities.get(i).getY();
-				}
+				width = (int)cities.get(i).getX();
 			}
-			image = new BufferedImage((int)((width+20)*scale),(int)((height+20)*scale),BufferedImage.TYPE_INT_ARGB);
-			Graphics2D g = image.createGraphics();
-			g.setColor(Color.white);
-			g.fillRect(0,0,(int)((width+20)*scale),(int)((height+20)*scale));
+			if(cities.get(i).getY()> height)
+			{
+				height = (int)cities.get(i).getY();
+			}
+		}
+		image = new BufferedImage((int)((width+20)*scale),(int)((height+20)*scale),BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g = image.createGraphics();
+		g.setColor(Color.white);
+		g.fillRect(0,0,(int)((width+20)*scale),(int)((height+20)*scale));
 
-			g.setColor(Color.blue);
-			for (int i=0; i< cities.size(); i++)
+		g.setColor(Color.blue);
+		for (int i=0; i< cities.size(); i++)
+		{
+			int x = (int)((cities.get(i).getX())*scale);
+			int y =(int)((cities.get(i).getY())*scale);
+			if(scale <3)
 			{
-				int x = (int)((cities.get(i).getX())*scale);
-				int y =(int)((cities.get(i).getY())*scale);
-				g.fillOval((x-4),(y-4),8,8);
+				g.fillOval((x-3),(y-3),6,6);
+			}else{
+				g.fillOval((int)(x-(1*scale)),(int)(y-(1*scale)),(int)(2*scale),(int)(2*scale));
 			}
-			
-			
-			for (int i=0; i< cities.size()-1; i++)
+		}
+		
+		
+		for (int i=0; i< cities.size()-1; i++)
+		{
+			g.setColor(Color.red);
+			if(scale <3)
 			{
-				g.setColor(Color.red);
-				g.drawLine((int)(cities.get(i).getX()*scale), (int)(cities.get(i).getY()*scale), (int)(cities.get(i+1).getX()*scale), (int)((cities.get(i+1).getY())*scale));
-				createImage(image,g, "step"+(i+1));
+				g.setStroke(new BasicStroke((float) 2));
+			}else{
+				g.setStroke(new BasicStroke((scale)/2));
 			}
-			createImage(image,g,"Route");
+			g.drawLine((int)(cities.get(i).getX()*scale), (int)(cities.get(i).getY()*scale), (int)(cities.get(i+1).getX()*scale), (int)((cities.get(i+1).getY())*scale));
+			createImage(image,g,fileName +" Step "+(i+1));
+		}
+		createImage(image,g,fileName);
 	}
 	
 	public static void IllustrateRoute(Map<Integer, Point2D> points, float scalingFactor, String fileName){

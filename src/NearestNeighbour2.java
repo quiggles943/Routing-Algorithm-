@@ -59,7 +59,6 @@ public class NearestNeighbour2 {
 	{
 		double[] keys = new double[cities.size()];
 		ArrayList<Point2D> tempcities = new ArrayList<Point2D>(cities);
-		//tempcities = cities;
 		Point2D currentCity = start;
 		Point2D closest = null;
 		double  distance = Double.MAX_VALUE;
