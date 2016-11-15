@@ -22,6 +22,7 @@ public class TSPIllustration {
 		cities = points;
 		int height = 0;
 		int width = 0;
+		//get image size
 		for (int i=0; i< cities.size(); i++)
 		{
 			if(cities.get(i).getX()> width)
@@ -33,12 +34,14 @@ public class TSPIllustration {
 				height = (int)cities.get(i).getY();
 			}
 		}
+		//creates image with size
 		image = new BufferedImage((int)((width+20)*scale),(int)((height+20)*scale),BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = image.createGraphics();
 		g.setColor(Color.white);
 		g.fillRect(0,0,(int)((width+20)*scale),(int)((height+20)*scale));
 
 		g.setColor(Color.blue);
+		//for each city, draw a circle at its location
 		for (int i=0; i< cities.size(); i++)
 		{
 			int x = (int)((cities.get(i).getX())*scale);
@@ -51,7 +54,7 @@ public class TSPIllustration {
 			}
 		}
 		
-		
+		//draw the route through the cities
 		for (int i=0; i< cities.size()-1; i++)
 		{
 			g.setColor(Color.red);
@@ -62,8 +65,10 @@ public class TSPIllustration {
 				g.setStroke(new BasicStroke((scale)/2));
 			}
 			g.drawLine((int)(cities.get(i).getX()*scale), (int)(cities.get(i).getY()*scale), (int)(cities.get(i+1).getX()*scale), (int)((cities.get(i+1).getY())*scale));
+			//create the image for that step
 			createImage(image,g,fileName +" Step "+(i+1));
 		}
+		//create the image
 		createImage(image,g,fileName);
 	}
 	
@@ -89,6 +94,7 @@ public class TSPIllustration {
 		g.fillRect(0,0,(int)((width+20)*scale),(int)((height+20)*scale));
 
 		g.setColor(Color.blue);
+		//for each city, draw a circle at its location
 		for (int i=0; i< cities.size(); i++)
 		{
 			int x = (int)((cities.get(i).getX())*scale);
@@ -97,11 +103,12 @@ public class TSPIllustration {
 			{
 				g.fillOval((x-3),(y-3),6,6);
 			}else{
+				//butts
 				g.fillOval((int)(x-(1*scale)),(int)(y-(1*scale)),(int)(2*scale),(int)(2*scale));
 			}
 		}
 		
-		
+		//draw the route through the cities
 		for (int i=0; i< cities.size()-1; i++)
 		{
 			g.setColor(Color.red);
@@ -113,6 +120,7 @@ public class TSPIllustration {
 			}
 			g.drawLine((int)(cities.get(i).getX()*scale), (int)(cities.get(i).getY()*scale), (int)(cities.get(i+1).getX()*scale), (int)((cities.get(i+1).getY())*scale));
 		}
+		//create the image
 		createImage(image,g,fileName);
 }
 			

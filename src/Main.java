@@ -15,12 +15,16 @@ public class Main {
 	static Map<Integer,Point2D> result2 = new HashMap<Integer,Point2D>();
 	
 	public static void main(String[] args) {
-		basic();
+		//basic();
+		
+		//this thread runs the algorithm
 		Thread thread = new Thread() {
 		    public void run() {
-		    	hybridNearestNeighbour();
+		    	hybridNearestNeighbour(true, true);
 		    }
 		};
+		
+		//this thread allows the user to stop the program once the path it is currently calculating is finished
 		thread2 = new Thread() {
 		    public void run() {
 		    	boolean notEntered = true;
@@ -36,7 +40,6 @@ public class Main {
 		    	if (stopped.equalsIgnoreCase("x"))
 		    	{
 		    		HybidNearestNeighbour.stop();
-		    		//HybidNearestNeighbour.cont = false;
 		    		notEntered = false;
 		    	}
 		    	}while(notEntered);
@@ -51,22 +54,29 @@ public class Main {
 
 	}
 	
-	public static void hybridNearestNeighbour(){
+	public static void hybridNearestNeighbour(boolean swaps, boolean illustration){
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("Please enter a file to load");
 		try {
+			//reads in the file location from the command line
 			fileLocation = reader.readLine();
 			cities = LoadCities.loadTSPLib(fileLocation);
 			thread2.start();
+			//runs the calculation
 			result = HybidNearestNeighbour.calculate(cities);
+			if(swaps)
+			{
+				//runs the swap sub-routine
+				result = HybidNearestNeighbour.swap(result);
+			}
 			double routeLength = HybidNearestNeighbour.routeLength(result);
 			System.out.println("The length of the  nearest neighbour algorithm route with pathfinding is "+routeLength);
-			TSPIllustration.IllustrateRoute(result, (float)5, fileLocation+" Route wth pathfinding");
-			//TSPIllustration.IllustrateAll(result, (float) 3, "Route step");
-			result = HybidNearestNeighbour.swap(result);
-			double routeLength2 = HybidNearestNeighbour.routeLength(result);
-			System.out.println("The length of the  nearest neighbour algorithm route with pathfinding and swapping is "+routeLength2);
-			TSPIllustration.IllustrateRoute(result, (float)5, fileLocation+" Route wth pathfinding and swap");
+			if(illustration)
+			{
+				//draws the final route into an image file
+				TSPIllustration.IllustrateRoute(result, (float)0.5, fileLocation+" Route wth pathfinding");
+			}
+			
 			}
 		catch (IOException e)
 		{
@@ -74,6 +84,7 @@ public class Main {
 		}
 	}
 	
+	//this runs the standard nearest neighbour and the hybrid nearest neighbour to allow a comparison
 	public static void proof(){
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("Please enter a file to load");
@@ -99,6 +110,8 @@ public class Main {
 		TSPIllustration.IllustrateRoute(result2, (float)2, fileLocation+" Route wth pathfinding");
 	}
 	
+	
+	//this runs and then outputs the standard nearest neighbour
 	public static void basic()
 	{
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
